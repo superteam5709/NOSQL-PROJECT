@@ -1,59 +1,68 @@
-# NOSQL-PROJECT
+#NOSQL-PROJECT
 
 Below is are the commands we used to create tables corresponding to each class.
 
 keyspace demo:
+
 CREATE KEYSPACE demo
     WITH REPLICATION = {
         'class': 'SimpleStrategy', 
         'replication_factor': 1
     };
-----------------------------------
+
 tweet:
+
 CREATE TABLE demo.tweet (
     id bigint PRIMARY KEY
 ) ;
-----------------------------------
+
 distinct_user:
+
 CREATE TABLE demo.distinct_user (
     user text PRIMARY KEY,
     count counter
 ) ;
-----------------------------------
+
 hashtag:
+
 CREATE TABLE demo.hashtag (
     tags text PRIMARY KEY,
     freq counter
 ) ;
-----------------------------------
+
 toptweeter:
+
 CREATE TABLE demo.toptweeter (
     top_user text PRIMARY KEY,
     retweeted counter
 ) ;
-----------------------------------
+
 location:
+
 CREATE TABLE demo.location (
     id bigint PRIMARY KEY,
     latitude float,
     longitude float
 ) 
-----------------------------------
+
 trump_sentiment:
+
 CREATE TABLE demo.trump_sentiment (
     id text PRIMARY KEY,
     rating int,
     text text
 ) ;
-----------------------------------
+
 russia_sentiment:
+
 CREATE TABLE demo.russia_sentiment (
     id text PRIMARY KEY,
     rating int,
     text text
 ) ;
-----------------------------------
+
 status_hifi:
+
 CREATE TABLE demo.status_hifi (
     id bigint PRIMARY KEY,
     created_at text,
@@ -78,8 +87,9 @@ CREATE TABLE demo.status_hifi (
     truncated boolean,
     user_id bigint
 ) ;
-----------------------------------
+
 user_hifi:
+
 CREATE TABLE demo.user_hifi (
     id bigint PRIMARY KEY,
     contributors_enabled boolean,
@@ -104,8 +114,9 @@ CREATE TABLE demo.user_hifi (
     verified boolean,
     withheld_in_countries text
 );
-----------------------------------
+
 place_hifi:
+
 CREATE TABLE demo.place_hifi (
     id text PRIMARY KEY,
     bounding_box frozen<tuple<frozen<list<text>>, text>>,
@@ -116,8 +127,9 @@ CREATE TABLE demo.place_hifi (
     place_type text,
     url text
 ) ;
-==================================
+
 ***Enabiling beeline + hive jdbc + spark sql***
+
 [cass@superteam ~]$ beeline
 Beeline version 1.2.1.spark2 by Apache Hive
 beeline>
@@ -132,8 +144,10 @@ Connected to: Spark SQL (version 2.2.0)
 Driver: Hive JDBC (version 1.2.1.spark2)
 Transaction isolation: TRANSACTION_REPEATABLE_READ
 0: jdbc:hive2://localhost:10000>
-==================================
+
+
 ***Create (bring) cassandra tables from demo keyspace to the Spark Thrift Server (so that Tableau can see these tables)***
+
 CREATE TABLE demo_tweet using org.apache.spark.sql.cassandra OPTIONS (keyspace "demo", table "tweet");
 CREATE TABLE demo_distinct_user using org.apache.spark.sql.cassandra OPTIONS (keyspace "demo", table "distinct_user");
 CREATE TABLE demo_hashtag using org.apache.spark.sql.cassandra OPTIONS (keyspace "demo", table "hashtag");
