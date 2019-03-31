@@ -144,3 +144,4 @@ CREATE TABLE demo_russia_sentiment using org.apache.spark.sql.cassandra OPTIONS 
 CREATE TABLE demo_status_hifi using org.apache.spark.sql.cassandra OPTIONS (keyspace "demo", table "status_hifi");
 CREATE TABLE demo_user_hifi using org.apache.spark.sql.cassandra OPTIONS (keyspace "demo", table "user_hifi");
 CREATE TABLE demo_place_hifi using org.apache.spark.sql.cassandra OPTIONS (keyspace "demo", table "place_hifi");
+
